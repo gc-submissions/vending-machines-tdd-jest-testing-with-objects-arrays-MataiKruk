@@ -1,4 +1,4 @@
-const { formatCurrency } = require("../src/js/money-functions");
+const { formatCurrency, getCoins, } = require("../src/js/money-functions");
 
 describe("formatCurrency", () => {
   it("0 becomes $0.00", () => {
@@ -33,8 +33,6 @@ describe("formatCurrency", () => {
     expect(formatCurrency(35678243252)).toBe("$35678243252.00");
   });
 });
-
-const { getCoins } = require("../src/js/money-functions");
 
 describe("getCoins", () => {
   it("32 cents in coins", () => {

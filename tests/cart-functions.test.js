@@ -1,4 +1,4 @@
-const { calculateChange } = require("../src/js/cart-functions");
+const { calculateChange, isSufficientPayment, calculateTotal, addItem, removeItem, } = require("../src/js/cart-functions");
 
 describe("calculateChange", () => {
   it("total 5, pays 6, change 1", () => {
@@ -14,8 +14,6 @@ describe("calculateChange", () => {
   });
 });
 
-const { isSufficientPayment } = require("../src/js/cart-functions");
-
 describe("isSufficientPayment", () => {
   it("total 5, pays 6, true", () => {
     expect(isSufficientPayment(5, 6)).toBe(true);
@@ -29,8 +27,6 @@ describe("isSufficientPayment", () => {
     expect(isSufficientPayment(3, 3)).toBe(true);
   });
 });
-
-const { calculateTotal } = require("../src/js/cart-functions");
 
 describe("calculateTotal", () => {
   it("1 item, 4.99, total 4.99", () => {
@@ -47,7 +43,7 @@ describe("calculateTotal", () => {
     let items = [
       {
         name: "Bread",
-        price: 3.5,
+        price: 3.50,
       },
 
       {
@@ -67,9 +63,22 @@ describe("calculateTotal", () => {
     let items = [];
     expect(calculateTotal(items)).toBeCloseTo(0);
   });
-});
 
-const { addItem } = require("../src/js/cart-functions");
+  it("2 items, 3.50 + 4.00, total 7.50", () => {
+    let items = [
+      {
+        name: "Bread",
+        price: 3.50,
+      },
+
+      {
+        name: "Apples",
+        price: 4.00,
+      }
+    ];
+    expect(calculateTotal(items)).toBeCloseTo(7.50);
+  });
+});
 
 describe("addItem", () => {
   it("adding 1 item to empty array", () => {
@@ -145,8 +154,6 @@ describe("addItem", () => {
     ]);
   });
 });
-
-const { removeItem } = require("../src/js/cart-functions");
 
 describe("removeItem", () => {
   it("remove first item from cart of 3", () => {
